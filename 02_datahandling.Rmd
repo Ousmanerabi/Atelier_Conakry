@@ -1,5 +1,5 @@
 ---
-title: "Introduction to data handling and visualisation in R"
+title: "Introduction to visualisation in R"
 output:
   html_document:
     toc: true
