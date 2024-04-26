@@ -1,6 +1,6 @@
 name: "R Markdown Websites Tutorial"
 navbar:
-  title: "Before we get Started"
+  title: "Avant de commencer"
   left:
     - text: "Data management"
       href: 01_datamanagement.html
