@@ -1,6 +1,6 @@
 ---
 title: |
-  ![](map-logo-col.png){width=300px style="display: block; margin:0 auto;"}  
+  ![](logo_northwestern.jpeg){width=300px style="display: block; margin:0 auto;"}  
   Visualisation des données et création des cartes
 output:
   html_document:
