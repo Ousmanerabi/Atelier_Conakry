@@ -1,7 +1,7 @@
 ---
 title: |
   ![](map-logo-col.png){width=300px style="display: block; margin:0 auto;"}  
-  Introduction to Spatial Analysis for Infectious Diseases
+  Visualisation des données et création des cartes
 output:
   html_document:
     toc: true
