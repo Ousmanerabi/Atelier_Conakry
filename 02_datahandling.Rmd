@@ -41,49 +41,6 @@ In this module we will cover what R is, how to install it on your machine and ho
 
 The teaching is followed by a practical session implementing the acquired skills to clean and process replica DHIS2 routine malaria surveillance data.
 
-<br>
-
-## Introduction to R and Rstudio
-R is a popular programming language for data science. It is a powerful language which can be used for basic data cleaning and analysis, building complex statistical models, creating publication quality visualisations, as well as building interactive tools and websites. R is an open source software with numerous people contributing packages to improve it's functionality. 
-
-We will be using R to run all of the code in this module. To improve ease of use we will run this through the RStudio interface. RStudio is an integrated development environment (IDE) from which we can run R. This is more user friendly and has large functionality for organising projects and building reproducible code.
-
-<br>
-
-### Installing R and RStudio
-Firstly to install R go to the R-project webpage: [https://www.r-project.org/](https://www.r-project.org/). Select a CRAN mirror in a location close to you from which to download R. Follow the prompts to download R for your processing system.  
- 
-<br>
-
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("images/download_R.png")
-```
-
-<br>
-
-Rstudio can then be downloaded from the webpage: [https://www.rstudio.com/products/rstudio/download](https://www.rstudio.com/products/rstudio/download). Select the free desktop version to proceed.
-
-<br>
-
-```{r, out.width="50%", echo=FALSE}
-knitr::include_graphics("images/download_Rstudio.png")
-```
-
-<br>
-
-### Overview of RStudio
-Once installed, open up RStudio. You will see the console on your left, this is where you can type code and run R commands. There are two windows on your right, the top one shows you what is in the global R environment, and the bottom one is where you can view files, plots, packages and help pages. 
-
-There are two ways we can run R code in RStudio, directly from the console, or from an R script. We will start by looking at the console where we can write basic code to be run line by line. 
-
-<br>
-
-### Project management with Rstudio
-In RStudio you can use "projects" to manage your files and code. These help to organise everything into a working directory and allow you to easily keep your files, scripts and outputs for a single project in one place. 
-
-You can either create a new project from scratch in RStudio, create a project from an existing folder containing R code or by cloning a version controlled (e.g. Git) repository.
-
-We will look at how to start a new project in RStudio. To do this we go to File > New Project. Select the option to create the project in a new directory and give the directory a name and create the project.
 
 <br>
 
