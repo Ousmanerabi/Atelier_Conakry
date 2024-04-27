@@ -2,9 +2,9 @@ name: "R Markdown Websites Tutorial"
 navbar:
   title: "Avant de commencer"
   left:
-    - text: "Data handling and Visualisation in R"
+    - text: "Visualisation des données sous R"
       href: 02_datahandling.html
-    - text: "Spatial Data in R"
+    - text: "Analyse spatiale sous R"
       href: 04_spatial_in_R.html
 output_dir: "."
 output:
