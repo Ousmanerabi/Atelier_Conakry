@@ -6,8 +6,6 @@ navbar:
       href: 02_datahandling.html
     - text: "Spatial Data in R"
       href: 04_spatial_in_R.html
-    - text: "Introduction to R-INLA"
-      href: 05_Intro_to_INLA.html
 output_dir: "."
 output:
   html_document:
