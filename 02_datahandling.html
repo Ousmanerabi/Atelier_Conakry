@@ -396,56 +396,6 @@ frames, matrices and vectors. It is useful way of organising and storing
 data.</p>
 <p><br></p>
 </div>
-<div id="basic-expressions" class="section level3">
-<h3>Basic expressions</h3>
-<p>In the console we can write expressions and execute them by pressing
-enter. The most basic code we can write is simple calculations; when we
-press enter the calculation will be processed and a value returned.</p>
-<pre class="r"><code>5 + 5</code></pre>
-<pre><code>## [1] 10</code></pre>
-<p>You can create variables and assign values to them, for example, we
-want to create a variable for the number of people tested for malaria.
-We want the variable to be called “tested” and for it to have the value
-of 120. We assign this using the <code>&lt;-</code> sign. This will now
-appear in your global environment window on the top right. We can use
-the shortcut “<code>alt</code> and <code>-</code>” to input the
-<code>&lt;-</code> sign.</p>
-<pre class="r"><code>tested &lt;- 120</code></pre>
-<p>You can then refer to the variable in the code you write and it will
-work as the value assigned to it. It is then possible to do calculations
-based on this variable.</p>
-<pre class="r"><code>tested * 2</code></pre>
-<pre><code>## [1] 240</code></pre>
-<pre class="r"><code>tested / 10</code></pre>
-<pre><code>## [1] 12</code></pre>
-<p>Creating another variable will allow us to perform calculations
-between those variables. These variables can then be updated and the
-same code rerun to produce updated results. For example, we received
-information telling us that of the 120 people tested for malaria, 80
-were confirmed positive. We can assign this value to the variable
-“positive” and calculate the proportion of those tested who were
-confirmed positive.</p>
-<pre class="r"><code>positive &lt;- 80
-positive / tested  ## Proportion of people tested confirmed positive</code></pre>
-<pre><code>## [1] 0.6666667</code></pre>
-<p>If we then received updated information that 160 people were tested,
-not 120, we can update the value for tested and recalculate the
-proportion of positive cases.</p>
-<pre class="r"><code>tested &lt;- 160    
-positive / tested </code></pre>
-<pre><code>## [1] 0.5</code></pre>
-<p>We can store the output value as a new variable and give it a name.
-This can then be called on from the environment.</p>
-<pre class="r"><code>proportion_positive &lt;- positive / tested 
-proportion_positive</code></pre>
-<pre><code>## [1] 0.5</code></pre>
-<p>R isn’t restricted to numeric variables, we can also create variables
-of character strings in the same way.</p>
-<pre class="r"><code>country &lt;- &quot;Burkina Faso&quot;
-country</code></pre>
-<pre><code>## [1] &quot;Burkina Faso&quot;</code></pre>
-<p><br></p>
-</div>
 <div id="vectors" class="section level3">
 <h3>Vectors</h3>
 <p>In R we commonly work with vectors, these are sequences of values.
