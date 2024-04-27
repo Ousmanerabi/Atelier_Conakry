@@ -4,8 +4,6 @@ navbar:
   left:
     - text: "Data handling and Visualisation in R"
       href: 02_datahandling.html
-    - text: "Spatial Data in QGIS"
-      href: 03_QGIS.html
     - text: "Spatial Data in R"
       href: 04_spatial_in_R.html
     - text: "Introduction to R-INLA"
