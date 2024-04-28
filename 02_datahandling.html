@@ -351,7 +351,7 @@ participants d'avoir des aptitudes pour visualiser les données sous R.</p>
 <div id="Types-et-structures-des-données" class="section level3">
 <h3>Types et structures des données</h3>
 <p>Nous allons maintenant vous présenter quelques-uns des types de données de base en R. 
-       Il existe cinq principaux types de données en R, à savoir:</p>
+Il existe cinq principaux types de données en R, à savoir:</p>
 <ul>
 <li>Characters : “a”, “banane”</li>
 <li>Numeric: 1 , 2.2321 , 1999</li>
@@ -369,7 +369,7 @@ participants d'avoir des aptitudes pour visualiser les données sous R.</p>
 <li>Lists</li>
 </ul>
 <p>Les vecteurs sont des séries de valeurs, qu'il s'agisse de nombres, 
-       de caractères ou de valeurs logiques (TRUE ou FALSE).</p>
+de caractères ou de valeurs logiques (TRUE ou FALSE).</p>
 <p>Les matrices sont des tableaux à deux dimensions qui peuvent 
 contenir des types de données numériques, de caractères ou logiques. 
 Toutes les données d'une matrice doivent être du même type et il y 
@@ -381,67 +381,20 @@ toutes les données étant du même type.</p>
 longueur regroupés ensemble, les vecteurs pouvant être de différents types 
 de données. Il s'agit du format le plus couramment utilisé pour analyser 
 les ensembles de données.</p>
-<p>Lists Les listes sont essentiellement une liste d'autres éléments, qui 
+<p>Les listes sont essentiellement une liste d'autres éléments, qui 
 peuvent être un mélange de différents types de données. Par exemple, vous 
 pouvez créer une liste de data frames, de matrices et de vecteurs. 
 C'est un moyen utile d'organiser et de stocker des données.</p>
 <p><br></p>
 </div>
-<div id="installing-packages" class="section level3">
-<h3>Installing packages</h3>
-<p>R has a range of base functions available to be used, these include
-things such as <code>mean()</code>, <code>sqrt()</code> and
-<code>round()</code>. For more advanced data management, analysis and
-visualisations there are additional packages you can download which
-contain a wide range of functions.</p>
-<p>Many packages are available on CRAN. CRAN is “The Comprehensive R
-Archive Network” and it stores up-to-date versions of code and
-documentation for R. Packages from CRAN can be installed directly from
-RStudio. For this module we will primarily be using the
-<code>tidyverse</code> group of packages. First we need to install the
-packages, then we need to load it into R to be able to use the
-functions. At the top of most R scripts you will find code for the
-packages being used in that script.</p>
-<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
-library(tidyverse)</code></pre>
-<p>You will only need to install the package onto your machine once,
-from then on for each new session of R you will need to load the
-packages required, but not to install them again.</p>
-<p><br></p>
-</div>
-<div id="help-available-in-r-studio" class="section level3">
-<h3>Help available in R studio</h3>
-<p>There is a range of help available in RStudio. The most basic and
-informative of these is the <code>help()</code> function or
-<code>?</code> operator. These provide access to the R help pages and
-documentation for the packages and functions. For example, if we look at
-the help page for the <code>round()</code>, which is a base R function,
-we can see a description of the function and the format the code needs
-to take.</p>
-<pre class="r"><code>?round</code></pre>
-<p>We can also access help pages for packages. This will show all of the
-help pages available for that package</p>
-<pre class="r"><code>help(package = tidyverse)</code></pre>
-<p>Alternatively many packages have vignettes. These are documents
-detailing the facilities in a package. They can be accessed from the
-help page of the project, as above, or called on directly.</p>
-<pre class="r"><code>vignette(&quot;pivot&quot;)</code></pre>
-<p>Finally, the internet provides a huge amount of help for coding in R.
-Search engines such as Google will provide multiple results for the
-problems you face (if you are struggling someone will have had the same
-problem before and asked for help!). Sites such as <a
-href="https://stackoverflow.com/">stackoverflow</a> contain large
-numbers of questions and answers from the R users community.</p>
-<p><br></p>
-</div>
-<div id="importing-and-exploring-data-in-r" class="section level2">
-<h2>Importing and exploring data in R</h2>
-<div id="importing-data" class="section level3">
-<h3>Importing data</h3>
-<p>R has the functionality to import various types of data. One of the
-most common file types we work with are <code>.csv</code> files, but we
-can also import <code>.dta</code> files and <code>.xlsx</code> files
-among others.</p>
+<div id="import-des-données-dans-r" class="section level2">
+<h2>Import des données dans R</h2>
+<div id="import-des-données-dans-r" class="section level3">
+<h3>Import des données dans R</h3>
+<p>R permet d'importer différents types de données. Les types de fichiers
+les plus courants avec lesquels nous travaillons sont les suivants les 
+fichiers<code>.csv</code>, mais on peut aussi importer les fichiers <code>.dta</code> 
+et <code>.xlsx</code> parmi d'autres.</p>
 <p>We can import .csv files into RStudio using the base function
 <code>read.csv()</code>. In this function we insert the file path to the
 data we wish to import. Note that as we have set up a project, this is
