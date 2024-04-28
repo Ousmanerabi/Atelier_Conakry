@@ -410,7 +410,7 @@ de cas confirmés.</p>
 les fichiers Stata (.dta) et excels (.xls or .xlsx)peuvent être lus respectivement en utilisant 
 les fonction <code>read_dta()</code> du package <code>Haven</code>, et <code>read_excel()</code>
 du package <code>readxl</code>. Ces deux pcakges font partie du <code>tidyverse</code>.</p>
-<pre class="r"><code>## Examples, not run
+<pre class="r"><code>## Exemples, not run
 library(haven)
 dta_file &lt;- read_dta(&quot;filename.dta&quot;)
 
@@ -1405,13 +1405,13 @@ write_csv(pf_incidence_national, &#39;outputs/pf_incidence_national.csv&#39;)</c
 <div id="introduction-à -la-visualisation" class="section level2">
 <h2>Introduction à la visualisation</h2>
 <p>In this section we will introduce data visualisation using the
-popular <code>ggplot</code> package. This package contains functions to
-build a range of different plots, from scatter plots and line graphs, to
-box plots, bar charts and even maps. It is descriptive and makes it easy
-to build on plots and adjust the visualisations to your desired output,
-making publication quality plots.</p>
-<p>The data we will be using to create our plots is the dataset for the
-incidence of malaria created from our routine data.</p>
+popular <code>ggplot</code> package. Ce paquet contient des fonctions permettant 
+de construire une série de graphiques différents, depuis les  scatter plots et 
+les  line graphs jusqu'aux box plots, aux diagrammes à barres et même aux cartes. 
+Il est descriptif et permet de construire facilement des graphiques et d'ajuster les visualisations
+en fonction des résultats souhaités, ce qui permet d'obtenir des graphiques de qualité 
+pour la publication.</p>
+<p>Les données que nous utiliserons seront celles precedement importées.</p>
 <div id="basic-plotting" class="section level3">
 <h3>Graphiques de bases</h3>
 <p>We will start by showing you how to build a basic plot with the
