@@ -343,34 +343,24 @@ div.tocify {
 </div>
 
 
-<p>This module provides an introduction to R and RStudio. It includes
-hands on teaching for how to handle data in R using key packages such as
-tidyverse sf, sp, rgdal and raster.</p>
-<p>In this module we will cover what R is, how to install it on your
-machine and how to interact with the RStudio interface. We will look at
-how to manage your projects in R then introduce basic data management
-and processing. This will then be expanded on and you will learn about
-data manipulation and key functions used to clean and investigate your
-data. We will introduce the ggplot package and explore how this can be
-used to produce high quality data visualisations. Finally we will cover
-how to save your data.</p>
-<p>The teaching is followed by a practical session implementing the
-acquired skills to clean and process replica DHIS2 routine malaria
-surveillance data.</p>
+<p>Nous travaillerons sur la visualisation des données sous R en utilisant
+le package ggplot2. Cette séance sera très pratique et permettra aux
+participants d'avoir des aptitudes pour visualiser les données sous R.</p>
+<p>On va commencer par explorer les notions de base sous R.</p>
 
 <div id="Types-et-structures-des-données" class="section level3">
 <h3>Types et structures des données</h3>
-<p>We will now introduce you to some of the basic data types in R. There
-are five main types of data in R, these are:</p>
+<p>Nous allons maintenant vous présenter quelques-uns des types de données de base en R. 
+       Il existe cinq principaux types de données en R, à savoir:</p>
 <ul>
-<li>Characters : “a”, “bananas”</li>
+<li>Characters : “a”, “banane”</li>
 <li>Numeric: 1 , 2.2321 , 1999</li>
-<li>Integer: 2L, 5L (L tells R to store as integer)</li>
+<li>Integer: 2L, 5L</li>
 <li>Logical: True, False</li>
-<li>Complex: 1+4i (I is the imaginary part)</li>
-<li>Factors (categorical data with labels)</li>
+<li>Complex: 1+4i (I est la partie imaginaire)</li>
+<li>Factors (données catégorielles avec étiquettes)</li>
 </ul>
-<p>The major data structures in R are:</p>
+<p>Les principales structures de données dans R sont:</p>
 <ul>
 <li>Vectors</li>
 <li>Matrices</li>
@@ -378,39 +368,24 @@ are five main types of data in R, these are:</p>
 <li>Data frames</li>
 <li>Lists</li>
 </ul>
-<p>Vectors are series of values, either numbers, characters or logical
-values (TRUE or FALSE).</p>
-<p>Matrices are 2-dimensional array which can hold numeric, character or
-logical data types. All of the data in a matrix has to be of the same
-type and there is a fixed number of rows and columns.</p>
-<p>A array is of 2 or more dimensions and as with a matrix can hold
-numeric, character or logical data types, with all data being of the
-same type</p>
-<p>Data frames are a selection of equal length vectors grouped together,
-where the vectors can be of different data types. These are the most
-common format used to analyse datasets in and what we will primarily be
-working with in this session.</p>
-<p>Lists are essentially a list of other items, these can be a mixture
-of different data types, for example you can create a list of data
-frames, matrices and vectors. It is useful way of organising and storing
-data.</p>
+<p>Les vecteurs sont des séries de valeurs, qu'il s'agisse de nombres, 
+       de caractères ou de valeurs logiques (TRUE ou FALSE).</p>
+<p>Les matrices sont des tableaux à deux dimensions qui peuvent 
+contenir des types de données numériques, de caractères ou logiques. 
+Toutes les données d'une matrice doivent être du même type et il y 
+a un nombre fixe de lignes et de colonnes.</p>
+<p>Un tableau comporte 2 dimensions ou plus et, comme une matrice, 
+peut contenir des types de données numériques, de caractères ou logiques, 
+toutes les données étant du même type.</p>
+<p>Data frames sont une sélection de vecteurs de même 
+longueur regroupés ensemble, les vecteurs pouvant être de différents types 
+de données. Il s'agit du format le plus couramment utilisé pour analyser 
+les ensembles de données.</p>
+<p>Lists Les listes sont essentiellement une liste d'autres éléments, qui 
+peuvent être un mélange de différents types de données. Par exemple, vous 
+pouvez créer une liste de data frames, de matrices et de vecteurs. 
+C'est un moyen utile d'organiser et de stocker des données.</p>
 <p><br></p>
-</div>
-<div id="vectors" class="section level3">
-<h3>Vectors</h3>
-<p>In R we commonly work with vectors, these are sequences of values.
-Vectors can be numeric or character strings and are created using the
-<code>c()</code>, concatenate, function. Once we have created the vector
-we can access different values of the vector by using square brackets.
-<code>[2]</code> will return the second value in the vector.</p>
-<pre class="r"><code>tested &lt;- c(56, 102, 65, 43, 243) 
-tested[2]</code></pre>
-<pre><code>## [1] 102</code></pre>
-<pre class="r"><code>countries &lt;- c(&quot;Burkina Faso&quot;, &quot;Nigeria&quot;, &quot;Tanzania&quot;, &quot;Uganda&quot;)
-countries[2]</code></pre>
-<pre><code>## [1] &quot;Nigeria&quot;</code></pre>
-<p><br></p>
-
 </div>
 <div id="installing-packages" class="section level3">
 <h3>Installing packages</h3>
