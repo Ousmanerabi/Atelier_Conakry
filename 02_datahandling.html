@@ -401,19 +401,15 @@ chemin d'accès aux données que nous souhaitons importer.
 Nous pouvons assigner le jeu de données importé à un objet, appelé ici
 “data_atelier”, utilisant le signe <code>&lt;-</code> pour le stocker dans notre
 environment.</p>
-<p>For this module we are using a dataset called “routine_data”. This is
-an fake dataset of malaria routine case reporting and contains variables
-for the numbers of malaria tests performed and the numbers of confirmed
-cases. Data are reported by health facility for children under and over
-the age of 5 seperately.</p>
-<pre class="r"><code>routine_data &lt;- read.csv(&quot;data/routine_data.csv&quot;) </code></pre>
-<p>Other data types can easily be read into R using different packages
-available. Stata files (.dta) can be read in using the
-<code>read_dta()</code> function from the <code>Haven</code> package,
-and excel files (.xls or .xlsx) using the <code>read_excel()</code>
-function from the <code>readxl</code> package. Both of these packages
-are part of the <code>tidyverse</code> we installed earlier so they do
-not need to be installed, just loaded.</p>
+<p>Pour ce travail nous allons utiliser la base de données “data_atelier”. Il s'agit 
+d'un faux ensemble de données sur la notification systématique des cas de paludisme, 
+qui contient des variables sur le nombre de tests de paludisme effectués et le nombre 
+de cas confirmés.</p>
+<pre class="r"><code>data_atelier &lt;- read.csv(&quot;data/data_atelier.csv&quot;) </code></pre>
+<p>D'autres types de données peuvent être facilement lus dans R à l'aide de différents packages disponibles. 
+les fichiers Stata (.dta) et excels (.xls or .xlsx)peuvent être lus respectivement en utilisant 
+les fonction <code>read_dta()</code> du package <code>Haven</code>, et <code>read_excel()</code>
+du package <code>readxl</code>. Ces deux pcakges font partie du <code>tidyverse</code>.</p>
 <pre class="r"><code>## Examples, not run
 library(haven)
 dta_file &lt;- read_dta(&quot;filename.dta&quot;)
