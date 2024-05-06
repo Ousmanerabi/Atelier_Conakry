@@ -1425,11 +1425,10 @@ with</li>
 <li><code>mapping</code>: the columns of the data frame we are plotting.
 This is created using the <code>aes()</code> command.</li>
 </ul>
-<p><code>aes()</code> stands for “aesthetic” and is used to specify what
-we want to show in the plot. We will start by looking at plots of simple
-time trends using the malaria incidence data for all ages. First, we
-filter the <code>pf_incidence_national</code> data frame for
-<code>age_group == "total"</code>.</p>
+<p><code>aes()</code> signifie “aesthetic” et est utilisé pour spécifier ce 
+que nous voulons montrer dans le graphique. 
+Nous commencerons par examiner les graphiques des tendances temporelles 
+simples en utilisant les données sur l'incidence du paludisme pour tous les âges.</p>
 <pre class="r"><code>total_incidence &lt;- 
   filter(pf_incidence_national, age_group == &#39;total&#39;)</code></pre>
 <p>We then start with the ggplot command. We want to use the total
