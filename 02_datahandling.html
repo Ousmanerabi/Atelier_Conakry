@@ -1429,19 +1429,18 @@ This is created using the <code>aes()</code> command.</li>
 que nous voulons montrer dans le graphique. 
 Nous commencerons par examiner les graphiques des tendances temporelles 
 simples en utilisant les données sur l'incidence du paludisme pour tous les âges.</p>
-<pre class="r"><code>total_incidence &lt;- 
-  filter(pf_incidence_national, age_group == &#39;total&#39;)</code></pre>
-<p>We then start with the ggplot command. We want to use the total
-incidence dataset and wish to plot the year on the x-axis and the
-incidence on the y-axis so the command is as follows:</p>
+<p>Nous commençons ensuite avec la commande ggplot. Nous voulons utiliser 
+l'ensemble des données relatives à l'incidence totale et souhaitons représenter 
+l'année sur l'axe des x et l'incidence sur l'axe des y. 
+La commande est donc la suivante:</p>
 <pre class="r"><code>ggplot(data = total_incidence, mapping = aes(x = date_tested, y = incidence))</code></pre>
 </div>
 <div id="scatter-plots-line-graphs" class="section level3">
 <h3>Scatter plots &amp; line graphs</h3>
-<p>This wont yet produce a figure as we need to tell ggplot what sort of
-figure we would like this to be. We will start by making a scatter plot
-using <code>geom_point()</code>. We add layers to the ggplot object
-using the <code>+</code> operator.</p>
+<p>Cela ne produira pas encore de graphique, car nous devons indiquer à ggplot 
+le type de graphique que nous souhaitons obtenir. Nous commencerons par 
+créer un diagramme de dispersion à l'aide de <code>geom_point()</code>. 
+Nous ajoutons des couches à l'objet ggplot à l'aide de la fonction <code>+</code> operator.</p>
 <pre class="r"><code>ggplot(data = total_incidence, mapping = aes(x = date_tested, y = incidence))+
   geom_point()</code></pre>
 <p><img src="02_datahandling_files/figure-html/unnamed-chunk-69-1.png" width="60%" style="display: block; margin: auto;" /></p>
