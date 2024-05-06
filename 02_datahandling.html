@@ -1440,18 +1440,17 @@ La commande est donc la suivante:</p>
 <p>Cela ne produira pas encore de graphique, car nous devons indiquer à ggplot 
 le type de graphique que nous souhaitons obtenir. Nous commencerons par 
 créer un diagramme de dispersion à l'aide de <code>geom_point()</code>. 
-Nous ajoutons des couches à l'objet ggplot à l'aide de la fonction <code>+</code> operator.</p>
+Nous ajoutons des couches à l'objet ggplot à l'aide du signe <code>+</code>.</p>
 <pre class="r"><code>ggplot(data = total_incidence, mapping = aes(x = date_tested, y = incidence))+
   geom_point()</code></pre>
 <p><img src="02_datahandling_files/figure-html/unnamed-chunk-69-1.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>We can then control how the points look by adding commands to the
-<code>geom_point()</code> function, such as the size, colour and
-transparency (alpha) of the points.</p>
+<p>Nous pouvons ensuite contrôler l'aspect des points en ajoutant des commandes à la fonction
+<code>geom_point()</code>, comme la taille, la couleur et la transparence (alpha) des points.</p>
 <pre class="r"><code>ggplot(data = total_incidence, mapping = aes(x = date_tested, y = incidence))+
   geom_point(size=5, colour = &quot;blue&quot;, alpha = 0.5)</code></pre>
 <p><img src="02_datahandling_files/figure-html/unnamed-chunk-70-1.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>We can also change the type of the point by using the
-<code>shape =</code> command.</p>
+<p>Nous pouvons également modifier le type de point en utilisant la commande
+<code>shape =</code>.</p>
 <pre class="r"><code>ggplot(data = total_incidence, mapping = aes(x = date_tested, y = incidence))+
   geom_point(size=4, colour = &#39;blue&#39;, alpha = 0.5, shape = 18)
 
