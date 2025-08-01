@@ -1,0 +1,16 @@
+```yaml
+theme: jekyll-theme-minimal
+title: Atelier Conakry
+description: Tutorials for creating websites with R Markdown and spatial data analysis in R
+baseurl: "/Atelier_Conakry"
+url: "https://ousmanerabi.github.io"
+plugins:
+  - jekyll-seo-tag
+collections:
+  pages:
+    output: true
+    permalink: /:path/
+  spatial_analysis_pages:
+    output: true
+    permalink: /spatial_analysis/:path/
+```
