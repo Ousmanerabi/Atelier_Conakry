@@ -453,14 +453,14 @@ library</p>
 <code>st_read()</code>. Similarly to <code>read_csv()</code> we include
 a filepath to a shapefile. In this instance we would load the part of
 the shapefile that ends with <em>.shp</em></p>
-<pre class="r"><code>shp &lt;- st_read(&quot;shapefiles/FAK_HDs.shp&quot;)</code></pre>
-<pre><code>## Reading layer `FAK_HDs&#39; from data source 
-##   `/Users/pamratia/Documents/ASTMH_tutorial_webpage/shapefiles/FAK_HDs.shp&#39; 
+<pre class="r"><code>shp &lt;- st_read(&quot;data/shapefiles/GIN_adm2.shp&quot;)</code></pre>
+<pre><code>## Reading layer `GIN_adm2&#39; from data source 
+##   `/Users/ousmanediallo/Library/CloudStorage/OneDrive-Personnel/GIN/GIN/WHO_GIN/Submitted data/Shapefiles/SHP Guinee/GIN_adm2.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
-## Simple feature collection with 46 features and 5 fields
+## Simple feature collection with 34 features and 9 fields
 ## Geometry type: POLYGON
 ## Dimension:     XY
-## Bounding box:  xmin: -1.137248 ymin: 7.081189 xmax: 4.912022 ymax: 10.37418
+## Bounding box:  xmin: -15.07625 ymin: 7.193553 xmax: -7.641071 ymax: 12.69152
 ## Geodetic CRS:  WGS 84</code></pre>
 <p>You’ll notice that when you load the shapefile in, there will be a
 set of information explaining the features of the shapefile. The first
