@@ -276,7 +276,7 @@ pop1 <- crop(population, c(-1,2,9,10))   # c(xmin, xmax, ymin, ymax)
 plot(pop1)
 
 # Get the extend of the "West" region of fakeland
-e <- filter(fakeland, adm1 == 'West') %>% 
+e <- filter(GN, adm1 == 'Boke') %>% 
   ext()
 
 # Crop the raster to the same extent
@@ -288,7 +288,7 @@ We may then want to change all of the raster cells which lay outside of the poly
 
 ```{r}
 library(terra)
-m <- filter(fakeland, adm1 == 'West')
+m <- filter(GN, adm1 == 'Boke')
 
 West_pop <-  mask(West_pop, vect(m))
 
@@ -318,7 +318,7 @@ If we had a vector of spatial vector of coordinates, such as our dataset of heal
 
 
 ```{r}
-GPMM_extract <- extract(GPMM, vect(fakeland_hf_points))
+GPMM_extract <- extract(GPMM, vect(gn_hf_points))
 
 head(GPMM_extract)
 ```
@@ -330,10 +330,10 @@ fakeland_pop <- extract(population, vect(fakeland))
 
 head(fakeland)
 
-fakeland_pop <- fakeland_pop %>% 
+gn_pop <- gn_pop %>% 
   group_by(ID) %>% 
   summarise(population = sum(ihme_corrected_worldpop_All_Ages_3_2018, na.rm = T)) %>% 
-  mutate(adm2 = fakeland$adm2)
+  mutate(adm2 = gn$adm2)
 ```
 
 <br>
@@ -358,14 +358,14 @@ writeRaster(West_pop, "rasters/West_adm1_population.tif")
 >   <summary markdown="span">Solution</summary>
 > 
 >  ```{r, answer=TRUE, eval=FALSE, purl=FALSE}
->  fakeland <- st_read("shapefiles/fakeland_task.shp")
->  fakeland <- st_transform(fakeland, 4326)
+>  test <- st_read("shapefiles/test_task.shp")
+>  test <- st_transform(test, 4326)
 >  GPMM_Apr <- rast("rasters/GPMM.IMerg.V06B.MM_Total.2018.04.Data.5km.tif")
 >  names(GPMM_Apr) <- 'GPMM_Apr'
->  fakeland_rain <- extract(GPMM_Apr, fakeland) %>% 
+>  fakeland_rain <- extract(GPMM_Apr, test) %>% 
                     group_by(ID) %>% 
                     summarise(mean_rainfall = mean(GPMM_Apr, na.rm = T)) %>% 
-                    mutate(adm1 = fakeland$adm1)
+                    mutate(adm1 = test$adm1)
 >  ```
 > </details>
  
@@ -379,25 +379,25 @@ rm(list = ls())  # clear the console
 
 # Import the data sources
 annual_data <- read_csv('data/annual_admin_data.csv')
-fakeland <- st_read('shapefiles/FAK_HDs.shp')
+shp <- st_read('data/shapefiles/adm2.shp')
 population <- rast('rasters/ihme_corrected_worldpop_All_Ages_3_2018.tif')
 
 # Extract the population for each district
-fakeland_pop <- 
-  extract(population, vect(fakeland)) %>% 
+gn_pop <- 
+  extract(population, vect(gn)) %>% 
   group_by(ID) %>% 
   summarise(population = sum(ihme_corrected_worldpop_All_Ages_3_2018, na.rm = T)) %>% 
-  mutate(adm2 = fakeland$adm2) 
+  mutate(adm2 = gn$adm2) 
 
 # Join onto the routine data and calculate incidence
 annual_data <- 
-  left_join(annual_data, fakeland_pop) %>% 
+  left_join(annual_data, gn_pop) %>% 
   mutate(API = conf/population*100000) %>% 
   select(adm1, adm2, API)
 
 #Join the routine data onto the shapefile
-fakeland_annual <- 
-  left_join(fakeland, annual_data) 
+gn_annual <- 
+  left_join(shp, annual_data) 
 ```
 
 <br>
@@ -417,7 +417,7 @@ It's possible to produce maps using nothing more than `rgdal`. Simply calling `p
 library(rgdal)
 
 
-plot(fakeland_annual["API"])
+plot(gn_annual["API"])
 
 ```
 
@@ -425,7 +425,7 @@ By default R will place the legend wherever it thinks 'best', but you can specif
 
 ```{r, message = F}
 
-plot(fakeland_annual["API"], key.pos = 1)
+plot(gn_annual["API"], key.pos = 1)
 
 ```
 
@@ -441,11 +441,11 @@ Titles can be specified using `main`, axes (with lat-longs) toggled on/off using
 # define the palette
 test_pal <- viridis::viridis(10)
 
-plot(fakeland_annual["API"], 
+plot(gn_annual["API"], 
      key.pos = 1,
      pal = test_pal,
      breaks = 'quantile',
-     main = "API, Fakeland 20XX",
+     main = "API, GN 20XX",
      axes = F,
      logz = T)
 
@@ -466,7 +466,7 @@ Recall from earlier the typical `ggplot` call: `ggplot(data, aesthetic)`. When m
 Given an `sf` object, you can use `geom_sf` to produce a simple plot of your shapefile without even explicitly defining any aesthetics.
 
 ```{r, message = F}
-ggplot(fakeland) + 
+ggplot(shp) + 
   geom_sf() + # as we've called ggplot using an sf object as the data argument, geom_sf can figure it out itself
   coord_sf()  # deals with map projection 
 ```
@@ -482,15 +482,15 @@ Let's see how we can use `ggplot2` to map the API in each admin2 unit of Fakelan
 
 ```{r, message = F}
 
-my_breaks <- c(signif(min(fakeland_annual$API)-1, 2), 8000, 160000, signif(max(fakeland_annual$API)+1, 2))
+my_breaks <- c(signif(min(gn_annual$API)-1, 2), 8000, 160000, signif(max(gn_annual$API)+1, 2))
 ```
 
 
 ```{r, message = F}
 ggplot() + 
-  geom_sf(data = fakeland_annual, aes(fill = API), colour = "grey25") + # now we need to tell ggplot an antribute of the data to use as an aesthetic
+  geom_sf(data = gn_annual, aes(fill = API), colour = "grey25") + # now we need to tell ggplot an antribute of the data to use as an aesthetic
   scale_fill_viridis_c(trans = "log", breaks = my_breaks) +
-  labs(title = "API, Fakeland 20XX", fill = "") +
+  labs(title = "API, GN 20XX", fill = "") +
   coord_sf() + # deals with map projection
   guides() +
   theme_void() +
@@ -502,7 +502,7 @@ Compare this to the base R map we made -- our colour scale is now continuous, bu
 
 Breaking down the code we used to produce it:
 
-`ggplot() + geom_sf(data = fakeland_annual, aes(fill = API), colour = "grey25") +`
+`ggplot() + geom_sf(data = gn_annual, aes(fill = API), colour = "grey25") +`
 
 After calling `ggplot()`, our first layer is a call to `geom_sf` pointing to our `sf` object. We're making a univariate map, so our aesthetics consists only of a single call to fill the polygons with the entries in `fakeland_annual$API` -- no need for a `geometry` call, here. `colour` determines the colour of the polygon outlines -- we're not varying that based on data, so it sits outside `aes`.
 
@@ -510,13 +510,13 @@ After calling `ggplot()`, our first layer is a call to `geom_sf` pointing to our
 
 This next layer tells R to using a continuous viridis palette when filling our polygons. When filling with discrete (factor) data, you instead use `scale_fill_viridis_d()` here. The Viridis family of colourramps are designed to . Arguments you can pass to this function include `alpha`, to change transparency; `begin` and `end` to truncate the palette; `direction` to reverse it; and `option` to pick another palette in the viridis family. Four options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"), "viridis" (or "D", the default option used here) and "cividis" (or "E"). By default `NA`s will be shown in grey -- change this by setting `na.value` to the colour of your choice.
 
-`labs(title = "API, Fakeland 20XX", fill = "") +`
+`labs(title = "API, GN 20XX", fill = "") +`
 
 It's rare that our short variable names are explanatory enough to show on a plot. `labs` allows us to define exactly what we want displayed, and define the plot title, subtitle, and even a caption (e.g. for attribution). Labels of aesthetics are set by referring back to that aesthetic: `fill`, `colour`, `alpha`, etc..
 
 `coord_sf() + # deals with map projection`
 
-The projection and extent of our map are controlled by this function. In this case, it's not doing anything -- we could happily have omitted it from our `ggplot` call. This is because by default `ggplot2` will use the CRS of the first layer which defines one -- here `fakeland_annual`. This can be overridden using a `crs` argument, which accepts any valid PROJ4 string.
+The projection and extent of our map are controlled by this function. In this case, it's not doing anything -- we could happily have omitted it from our `ggplot` call. This is because by default `ggplot2` will use the CRS of the first layer which defines one -- here `gn_annual`. This can be overridden using a `crs` argument, which accepts any valid PROJ4 string.
 
 `coord_sf` is also used to change the extent of our map -- by default the whole shapefile is shown, but providing `xlim` and `ylim` arguements can zoom in on areas of interest.
 
@@ -542,28 +542,28 @@ With `ggplot2` we can go much further than simply recreating base R's plots. The
 
 #### Adding points to maps
 
-Suppose we want to add the locations of health facilities in Fakeland to our map of API. `fakeland_hf_points` is an `sf` object, but this time consisting of points. That doesn't matter to `geom_sf`.
+Suppose we want to add the locations of health facilities in GN to our map of API. `fakeland_hf_points` is an `sf` object, but this time consisting of points. That doesn't matter to `geom_sf`.
 
 ```{r, message = F}
-fakeland_hf_gps <- read_csv("data/fakeland_hf_gps.csv")
+fakeland_hf_gps <- read_csv("data/gn_hf_gps.csv")
 
 # Make the gps data into a point simple feature
-fakeland_hf_points <- st_as_sf(fakeland_hf_gps, coords = c("X", "Y"), crs = 4326)
+gn_hf_points <- st_as_sf(gn_hf_gps, coords = c("X", "Y"), crs = 4326)
 # Assign some of these points to be hospitals
-fakeland_hospitals <- sample(fakeland_hf_points$hf, 0.1*length(fakeland_hf_points$hf))
+gn_hospitals <- sample(gn_hf_points$hf, 0.1*length(gn_hf_points$hf))
 
-fakeland_hf_points <- fakeland_hf_points %>% 
-  mutate(hf_type = if_else(hf %in% fakeland_hospitals, "Hospital", "Clinic"))
+gn_hf_points <- gn_hf_points %>% 
+  mutate(hf_type = if_else(hf %in% gn_hospitals, "Hospital", "Clinic"))
 
 ```
 
 
 ```{r, message = F}
 ggplot() + 
-  geom_sf(data = fakeland_annual, aes(fill = API), colour = "grey50", size = 0.2) + # now we need to tell ggplot an antribute of the data to use as an aesthetic
+  geom_sf(data = gn_annual, aes(fill = API), colour = "grey50", size = 0.2) + # now we need to tell ggplot an antribute of the data to use as an aesthetic
   scico::scale_fill_scico(palette = "nuuk", trans = "log", breaks = my_breaks) +
-  geom_sf(data = fakeland_hf_points, aes(shape = hf_type), size = 2, colour = "grey20") + 
-  labs(title = "API, Fakeland 20XX", fill = "API ",
+  geom_sf(data = gn_hf_points, aes(shape = hf_type), size = 2, colour = "grey20") + 
+  labs(title = "API, GN 20XX", fill = "API ",
        shape = "Health Facility") +
   coord_sf() + # deals with map projection
   guides() +
@@ -587,7 +587,7 @@ For publications we often want to show some more contextual informaiton on our m
 Currently we only have a shapefile for Fakeland's health districts. Let's load in a regional Admin0 shapefile:
 
 ```{r, message = F}
-admin0_regional <- st_read("shapefiles/regional/fakeland_admin0_region.shp")
+admin0_regional <- st_read("shapefiles/regional/gn_admin0_region.shp")
 ```
 
 If we make a quick plot of this, we can see this shapefile shows the countries surrounding Fakeland. To check out the names of these countries, let's try using a `geom_label` layer. To add the labels in the right positions, we'll need to tell R the x and y co-ordinates of the centroids -- luckily this is easy to do using `st_centroid`. Rememeber that `st_centroid` assumes planar projection, rather than lat-lons. We can safely ignore the warning here, as we're just plotting for explanatory purposes, but be careful!
@@ -617,8 +617,8 @@ if(!require(ggspatial)){
 
 ggplot(admin0_regional) +
   geom_sf(fill = "antiquewhite") +
-  coord_sf(xlim= c(st_bbox(fakeland_annual)$xmin - .2, st_bbox(fakeland_annual)$xmax + .2),
-           ylim = c(st_bbox(fakeland_annual)$ymin - 1, st_bbox(fakeland_annual)$ymax + 1)) +
+  coord_sf(xlim= c(st_bbox(gn_annual)$xmin - .2, st_bbox(gn_annual)$xmax + .2),
+           ylim = c(st_bbox(gn_annual)$ymin - 1, st_bbox(gn_annual)$ymax + 1)) +
   ggspatial::annotation_north_arrow(location = "bl", 
                                     which_north = "true",
                                     style = north_arrow_fancy_orienteering) + 
@@ -655,12 +655,12 @@ basemap <- ggplot(admin0_regional) +
 ```{r, message=F}
 
 basemap + 
-  geom_sf(data = fakeland_annual, aes(fill = API), colour = "grey50", size = 0.2) + 
+  geom_sf(data = gn_annual, aes(fill = API), colour = "grey50", size = 0.2) + 
   scico::scale_fill_scico(palette = "nuuk", trans = "log", breaks = my_breaks) +
-  labs(title = "API, Fakeland 20XX", fill = "API ",
+  labs(title = "API, GN 20XX", fill = "API ",
        shape = "Health Facility") +
-  coord_sf(xlim= c(st_bbox(fakeland_annual)$xmin - .2, st_bbox(fakeland_annual)$xmax + .2),
-           ylim = c(st_bbox(fakeland_annual)$ymin - 1, st_bbox(fakeland_annual)$ymax + 1)) +
+  coord_sf(xlim= c(st_bbox(gn_annual)$xmin - .2, st_bbox(gn_annual)$xmax + .2),
+           ylim = c(st_bbox(gn_annual)$ymin - 1, st_bbox(gn_annual)$ymax + 1)) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
         legend.position = "right", legend.key.width = unit(0.5,"cm"), 
         legend.key.height = unit(0.75,"cm"), legend.text=element_text(size=12)) 
