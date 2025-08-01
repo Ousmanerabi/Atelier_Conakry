@@ -470,7 +470,7 @@ stored as a data tabel. It mentions also there is a spatial extent
 (called bounding box) and the coordinate reference system (CRS).</p>
 <p>you can also get this information when you simply call the sf
 object</p>
-<pre class="r"><code>fakeland</code></pre>
+<pre class="r"><code>shp</code></pre>
 <p><img src="images/features.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>In this case it is important to read in and check the metadata for
 the type of spatial information you have loaded.</p>
@@ -486,7 +486,7 @@ have a csv file containing the coordinates for the locations of health
 facilities in our routine data. Note that we set the projection for the
 spatial object using the <code>crs</code> command; crs 4326 is the
 standard WGS 84 CRS.</p>
-<pre class="r"><code>fakeland_hf_gps &lt;- read_csv(&quot;data/fakeland_hf_gps.csv&quot;)</code></pre>
+<pre class="r"><code>gn_hf_gps &lt;- read_csv(&quot;data/GIN_HFs_microstratification.csv&quot;)</code></pre>
 <pre><code>## Rows: 100 Columns: 8
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -496,7 +496,7 @@ standard WGS 84 CRS.</p>
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code># Make the gps data into a point simple feature
-fakeland_hf_points &lt;- st_as_sf(fakeland_hf_gps, coords = c(&quot;X&quot;, &quot;Y&quot;), crs = 4326)</code></pre>
+gn_hf_points &lt;- st_as_sf(gn_hf_gps, coords = c(&quot;X&quot;, &quot;Y&quot;), crs = 4326)</code></pre>
 <p><br></p>
 </div>
 <div id="shapefile-projections" class="section level4">
@@ -509,7 +509,7 @@ projections.</p>
 shapefile using <code>st_read</code> and when viewing the features of a
 shapefile. You can also see the CRS using the command
 <code>st_crs()</code></p>
-<pre class="r"><code>st_crs(fakeland)</code></pre>
+<pre class="r"><code>st_crs(shp)</code></pre>
 <pre><code>## Coordinate Reference System:
 ##   User input: WGS 84 
 ##   wkt:
@@ -531,16 +531,16 @@ shapefile. You can also see the CRS using the command
 <code>st_transform()</code>. We can also combine the two commands to
 change the projection of one data type to be that of the other.</p>
 <pre class="r"><code># Change the projection to UTM zone 17N
-fakeland_utm &lt;- st_transform(fakeland, 26717)
+gn_utm &lt;- st_transform(gn, 26717)
 
-ggplot(fakeland_utm)+
+ggplot(gn_utm)+
   geom_sf()+
   theme_bw()
 
-# Change the projection of the fakeland_utm shapefile to match that of the original fakeland
-fakeland2 &lt;- st_transform(fakeland_utm, st_crs(fakeland))
+# Change the projection of the gn_utm shapefile to match that of the original shp
+gn2 &lt;- st_transform(gn_utm, st_crs(shp))
 
-ggplot(fakeland2)+
+ggplot(gn2)+
   geom_sf()+
   theme_bw()</code></pre>
 <p><img src="04_spatial_in_R_files/figure-html/unnamed-chunk-2-1.png" width="50%" /><img src="04_spatial_in_R_files/figure-html/unnamed-chunk-2-2.png" width="50%" /></p>
@@ -554,7 +554,7 @@ maps and to analyse spatial data. You can use the join functions shown
 in module 2 to join sf data to tables. Just note that the sf data must
 go first to automatically be recognised as sf. Else you would need to
 reset it using <code>st_as_sf()</code></p>
-<pre class="r"><code>annual_data &lt;- read_csv(&quot;data/annual_admin_data.csv&quot;)</code></pre>
+<pre class="r"><code>annual_data &lt;- read_csv(&quot;data/GN_routine_data_for_seasonallity_2018_2022.csv&quot;)</code></pre>
 <pre><code>## Rows: 46 Columns: 20
 ## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -563,7 +563,7 @@ reset it using <code>st_as_sf()</code></p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>annual_data_sf &lt;- fakeland  %&gt;%  
+<pre class="r"><code>annual_data_sf &lt;- shp  %&gt;%  
                   left_join(annual_data, by = c(&quot;adm2&quot;, &quot;adm1&quot;)) </code></pre>
 <p><br></p>
 </div>
@@ -576,7 +576,7 @@ reset it using <code>st_as_sf()</code></p>
 <blockquote>
 <h3 id="task-1" class="challenge">Task 1</h3>
 <ul>
-<li>Load in the shapefile called “fakeland_task”</li>
+<li>Load in the shapefile called “GN_task”</li>
 <li>How many polygons are in the shapefile?</li>
 <li>What projection is this shapefile in?</li>
 <li>Change the projection to be in WGS 84</li>
@@ -585,10 +585,10 @@ reset it using <code>st_as_sf()</code></p>
 <summary>
 Solution
 </summary>
-<pre class="r"><code> fakeland &lt;- st_read(&quot;shapefiles/fakeland_task.shp&quot;)
- fakeland
- st_crs(fakeland)
- fakeland &lt;- st_transform(fakeland, 4326)</code></pre>
+<pre class="r"><code> GN &lt;- st_read(&quot;shapefiles/GN_task.shp&quot;)
+ GN
+ st_crs(GN)
+ GN &lt;- st_transform(GN, 4326)</code></pre>
 </details>
 </blockquote>
 <p><br></p>
@@ -622,7 +622,7 @@ extent and projection.</p>
 <h3>Loading raster data</h3>
 <p>We can import raster data using the function <code>rast()</code>, and
 look at the raster properties by calling the object.</p>
-<pre class="r"><code>population &lt;- rast(&quot;rasters/ihme_corrected_worldpop_All_Ages_3_2018.tif&quot;)
+<pre class="r"><code>population &lt;- rast(&quot;data/population_gin_2018-10-01.tif&quot;)
 population</code></pre>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 84, 156, 1  (nrow, ncol, nlyr)
@@ -639,7 +639,7 @@ function.</p>
 <p><img src="04_spatial_in_R_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>We can also use this function to read in a stack of multiple rasters.
 In the raster folder you will find a series of rasters with the prefix
-“GPMM”, these are the monthly rainfall at a 5km resolution for Fakeland.
+“GPMM”, these are the monthly rainfall at a 5km resolution for SHP.
 We can identify these rasters using the regular expression and read them
 in as a raster stack using <code>rast()</code>.</p>
 <pre class="r"><code>file.names &lt;- list.files(path = &#39;rasters/&#39;, pattern = &#39;^GPMM.*?\\.tif$&#39;, full.names = T)
