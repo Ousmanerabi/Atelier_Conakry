@@ -82,7 +82,7 @@ library(tidyverse)
 Shapefiles can be called in to R using the function `st_read()`. Similarly to `read_csv()` we include a filepath to a shapefile. In this instance we would load the part of the shapefile that ends with *.shp*
 
 ```{r read_dat}
-fakeland <- st_read("shapefiles/FAK_HDs.shp")
+shp <- st_read("data/shapefiles/adm2.shp")
 ```
 
 You'll notice that when you load the shapefile in, there will be a set of information explaining the features of the shapefile. The first sentence shows that you have loaded a ESRI shapefile, it contains 46 features (which are polygons in this case) and 5 columns of information stored as a data tabel. It mentions also there is a spatial extent (called bounding box) and the coordinate reference system (CRS).
@@ -90,7 +90,7 @@ You'll notice that when you load the shapefile in, there will be a set of inform
 you can also get this information when you simply call the sf object
 
 ```{r sf1, results ='hide',message=FALSE, warning = FALSE}
-fakeland
+shp
 ```
 
 ```{r figurename3, echo=FALSE, fig.cap="", out.width = '90%'}
@@ -105,10 +105,10 @@ In this case it is important to read in and check the metadata for the type of s
 Another key type of spatial data is data linked to coordinates, frequently found in a table format. We can read these data in using the `read_csv()` function, then we may want to convert these into spatial information using the `st_as_sf()` function. Here we have a csv file containing the coordinates for the locations of health facilities in our routine data. Note that we set the projection for the spatial object using the `crs` command; crs 4326 is the standard WGS 84 CRS.  
 
 ```{r make points}
-fakeland_hf_gps <- read_csv("data/fakeland_hf_gps.csv")
+gn_hf_gps <- read_csv("data/shapefiles/GIN_HFs_microstratification.csv")
 
 # Make the gps data into a point simple feature
-fakeland_hf_points <- st_as_sf(fakeland_hf_gps, coords = c("X", "Y"), crs = 4326)
+gn_hf_points <- st_as_sf(gn_hf_gps, coords = c("X", "Y"), crs = 4326)
 ```
 
 <br>
@@ -119,22 +119,22 @@ We learnt about the importance of Coordinate Reference Systems (CRS) for project
 We have already seen that you can identify the CRS when reading in a shapefile using `st_read` and when viewing the features of a shapefile. You can also see the CRS using the command `st_crs()`
 
 ```{r}
-st_crs(fakeland)
+st_crs(shp)
 ```
 We can then change the projection using the command `st_transform()`. We can also combine the two commands to change the projection of one data type to be that of the other. 
 
 ```{r, out.width='50%', fig.show='hold', fig.align='default'}
 # Change the projection to UTM zone 17N
-fakeland_utm <- st_transform(fakeland, 26717)
+gn_utm <- st_transform(gn, 26717)
 
 ggplot(fakeland_utm)+
   geom_sf()+
   theme_bw()
 
 # Change the projection of the fakeland_utm shapefile to match that of the original fakeland
-fakeland2 <- st_transform(fakeland_utm, st_crs(fakeland))
+gn2 <- st_transform(gn_utm, st_crs(gn))
 
-ggplot(fakeland2)+
+ggplot(gn2)+
   geom_sf()+
   theme_bw()
 
@@ -146,10 +146,10 @@ ggplot(fakeland2)+
 We often want to join data to shapefiles to enable the creation of maps and to analyse spatial data. You can use the join functions shown in module 2 to join sf data to tables. Just note that the sf data must go first to automatically be recognised as sf. Else you would need to reset it using `st_as_sf()`
 
 ```{r load data}
-annual_data <- read_csv("data/annual_admin_data.csv")
+annual_data <- read_csv("data/GN_routine_data_for_seasonallity_2018_2022.csv")
 
-annual_data_sf <- fakeland  %>%  
-                  left_join(annual_data, by = c("adm2", "adm1")) 
+annual_data_sf <- shp  %>%  
+                  left_join(annual_data, by = c("adm2")) 
 
 ```
 
@@ -165,7 +165,7 @@ st_write(annual_data_sf, "outputs/annual_admin_routine_data.shp")
 <br>
 
 > ### Task 1  {.challenge}
-> - Load in the shapefile called "fakeland_task"
+> - Load in the shapefile called "GN_task"
 > - How many polygons are in the shapefile?
 > - What projection is this shapefile in?
 > - Change the projection to be in WGS 84
@@ -175,10 +175,10 @@ st_write(annual_data_sf, "outputs/annual_admin_routine_data.shp")
 >   <summary markdown="span">Solution</summary>
 > 
 >  ```{r, answer=TRUE, eval=FALSE, purl=FALSE}
->  fakeland <- st_read("shapefiles/fakeland_task.shp")
->  fakeland
->  st_crs(fakeland)
->  fakeland <- st_transform(fakeland, 4326)
+>  GN <- st_read("shapefiles/GN_task.shp")
+>  GN
+>  st_crs(GN)
+>  GN <- st_transform(GN, 4326)
 >  ```
 > </details>
 
@@ -199,7 +199,7 @@ In terra we deal with rasters as a class of data called "SpatRaster". This is a 
 We can import raster data using the function `rast()`, and look at the raster properties by calling the object.
 
 ```{r}
-population <- rast("rasters/ihme_corrected_worldpop_All_Ages_3_2018.tif")
+population <- rast("data/population_gin_2018-10-01.tif")
 population
 ```
 
@@ -209,7 +209,7 @@ We can view the raster simply by using the `plot()` function.
 plot(population)
 ```
 
-We can also use this function to read in a stack of multiple rasters. In the raster folder you will find a series of rasters with the prefix "GPMM", these are the monthly rainfall at a 5km resolution for Fakeland. We can identify these rasters using the regular expression and read them in as a raster stack using `rast()`.
+We can also use this function to read in a stack of multiple rasters. In the raster folder you will find a series of rasters with the prefix "GPMM", these are the monthly rainfall at a 5km resolution for GN. We can identify these rasters using the regular expression and read them in as a raster stack using `rast()`.
 
 ```{r, out.width = '60%'}
 file.names <- list.files(path = 'rasters/', pattern = '^GPMM.*?\\.tif$', full.names = T)
